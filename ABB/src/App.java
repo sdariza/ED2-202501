@@ -16,7 +16,7 @@ public class App {
             System.out.println("Elemento no encontrado");
         }
 
-        //Nota: añadir al código: preorder, inorder, postorder y por niveles.
+        // Nota: añadir al código: preorder, inorder, postorder y por niveles.
         Queue<Node> q = new LinkedList<>();
         q.add(myAbb.root);
     }
