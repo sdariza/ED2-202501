@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class ABB {
     Node root;
 
@@ -23,6 +26,7 @@ public class ABB {
         if (root.data > newNode.data) {
             if (root.left == null) {
                 root.left = newNode;
+                System.out.println("Elemento " + newNode.data + " añadido");
             } else {
                 addNodeABBR(root.left, newNode);
             }
@@ -30,6 +34,7 @@ public class ABB {
             if (root.data < newNode.data) {
                 if (root.right == null) {
                     root.right = newNode;
+                    System.out.println("Elemento " + newNode.data + " añadido");
                 } else {
                     addNodeABBR(root.right, newNode);
                 }
@@ -54,6 +59,7 @@ public class ABB {
         Node newNode = new Node(data);
         if (root == null) {
             root = newNode;
+            System.out.println("La raíz ha sido añadida " + root.data);
         } else {
             addNodeABBR(root, newNode);
         }
@@ -90,4 +96,106 @@ public class ABB {
             return searchABB(root.right, x);
         }
     }
+
+    /**
+     * Esta función retorna el mayor de los menores
+     * 
+     * @param node
+     * @return
+     */
+    public Node mayor(Node node) {
+        if (node.right == null) {
+            return node;
+        }
+        return mayor(node.right);
+    }
+
+    public Node deleteNodeR(Node node, int x) {
+        // casos bases
+        if (node == null)// No lo encontré
+            return null;
+        if (node.data == x) {// Lo encontré debo contemplar y eliminar
+            // Caso 1 y 2: No tiene hijos o tiene 1 hijo
+            if (node.left == null)
+                return node.right;
+            if (node.right == null)
+                return node.left;
+            // caso 3: tiene 2 hijos:
+            Node pred = mayor(node.left);// busco el mayor de los menores
+            node.data = pred.data;
+            node.left = deleteNodeR(node.left, pred.data);
+        }
+        if (node.data > x) {
+            node.left = deleteNodeR(node.left, x);
+        }
+
+        if (node.data < x) {
+            node.right = deleteNodeR(node.right, x);
+        }
+
+        return node;
+    }
+
+    public void delete(int x) {
+        root = deleteNodeR(root, x);
+    }
+
+    public void levelOrderTraversal(Node node) {
+        Queue<Node> q = new LinkedList<>();
+        q.add(node);
+        while (!q.isEmpty()) {
+            Node element = q.poll();
+            System.out.print(element.data + "|");
+            if (element.left != null)
+                q.add(element.left);
+            if (element.right != null)
+                q.add(element.right);
+        }
+        System.out.println();
+    }
+
+    /**
+     * Suma de todos los elementos de un ABB
+     */
+    public int sumaNR(Node node) {
+        int cont = 0;
+        Queue<Node> q = new LinkedList<>();
+        q.add(node);
+        while (!q.isEmpty()) {
+            Node element = q.poll();
+            cont += element.data;
+            if (element.left != null)
+                q.add(element.left);
+            if (element.right != null)
+                q.add(element.right);
+        }
+        return cont;
+    }
+
+    /**
+     * The function `sumaR` recursively calculates the sum of all nodes in a binary
+     * tree starting from a
+     * given node.
+     * 
+     * @param node The `node` parameter in the `sumaR` method represents a node in a
+     *             binary tree. The
+     *             method calculates the sum of all the values in the tree rooted at
+     *             the given node. It recursively
+     *             traverses the tree and adds up the values of the current node,
+     *             its left subtree, and its
+     * @return The method `sumaR` is recursively calculating the sum of all the
+     *         nodes in a binary tree
+     *         starting from the given `node`. If the `node` is null, it returns 0.
+     *         Otherwise, it returns the sum
+     *         of the current node's data, the sum of all nodes in the left subtree,
+     *         and the sum of all nodes in
+     *         the right subtree.
+     */
+    public int sumaR(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        return node.data + sumaR(node.left) + sumaR(node.right);
+    }
+
 }
