@@ -1,6 +1,7 @@
 public class Node {
     int data;
     Node left, right;
+    int balance;
 
     // This is a constructor for the `Node` class in Java. It takes an integer
     // `data` as a parameter and
@@ -11,6 +12,7 @@ public class Node {
         this.data = data;
         this.left = null;
         this.right = null;
+        this.balance = 0;
     }
 
 }

@@ -22,13 +22,13 @@ public class ABB {
      *                binary search tree based on the comparison of the `data`
      *                values of the nodes.
      */
-    public void addNodeABBR(Node root, Node newNode) {
+    public Node addNodeABBR(Node root, Node newNode) {
         if (root.data > newNode.data) {
             if (root.left == null) {
                 root.left = newNode;
                 System.out.println("Elemento " + newNode.data + " añadido");
             } else {
-                addNodeABBR(root.left, newNode);
+                root.left = addNodeABBR(root.left, newNode);
             }
         } else {
             if (root.data < newNode.data) {
@@ -36,12 +36,14 @@ public class ABB {
                     root.right = newNode;
                     System.out.println("Elemento " + newNode.data + " añadido");
                 } else {
-                    addNodeABBR(root.right, newNode);
+                    root.right = addNodeABBR(root.right, newNode);
                 }
             } else {
                 System.out.printf("El elemento %d ya existe \n", newNode.data);
             }
         }
+        root.balance = height(root.left) - height(root.right);
+        return root;
     }
 
     /**
@@ -132,7 +134,7 @@ public class ABB {
         if (node.data < x) {
             node.right = deleteNodeR(node.right, x);
         }
-
+        node.balance = height(node.left) - height(node.right);
         return node;
     }
 
@@ -145,7 +147,7 @@ public class ABB {
         q.add(node);
         while (!q.isEmpty()) {
             Node element = q.poll();
-            System.out.print(element.data + "|");
+            System.out.print(element.data + " - fb: " + element.balance + "|");
             if (element.left != null)
                 q.add(element.left);
             if (element.right != null)
@@ -196,6 +198,25 @@ public class ABB {
             return 0;
         }
         return node.data + sumaR(node.left) + sumaR(node.right);
+    }
+
+    /**
+     * The function calculates the height of a binary tree starting from a given
+     * node.
+     * 
+     * @param node The `node` parameter in the `height` method represents a node in
+     *             a binary tree. The
+     *             method calculates the height of the binary tree starting from the
+     *             given node. If the node is null,
+     *             it means that there are no more nodes in that branch of the tree,
+     *             so the height is considered
+     * @return The height of the binary tree rooted at the given node is being
+     *         returned.
+     */
+    public int height(Node node) {
+        if (node == null)
+            return 0;
+        return 1 + Math.max(height(node.left), height(node.right));
     }
 
 }
