@@ -5,7 +5,7 @@ public class AVL extends BinaryTree {
         if (node == null) {
             return new Node(x);
         }
-        
+
         if (x == node.getData()) {
             System.out.println("El elemento " + x + " ya existe");
             return node;
@@ -56,8 +56,43 @@ public class AVL extends BinaryTree {
 
     @Override
     public Node deleteNodeR(Node node, int x) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteNodeR'");
+        if (node == null) {
+            System.out.printf("Elemento %d no encontrado \n", x);
+            return null;
+        }
+        if (x < node.getData())
+            node.setLeft(deleteNodeR(node.getLeft(), x));
+        if (x > node.getData())
+            node.setRight(deleteNodeR(node.getRight(), x));
+
+        if (node.getData() == x) {
+            if (node.getLeft() == null) {
+                return node.getRight();
+            }
+
+            if (node.getRight() == null) {
+                return node.getLeft();
+            }
+
+            Node pred = searchPredecessor(node.getLeft());
+            node.setData(pred.getData());
+            node.setLeft(deleteNodeR(node.getLeft(), pred.getData()));
+        }
+        node.setBalance(height(node.getLeft()) - height(node.getRight()));
+        if (node.getBalance() == -2) {
+            if (node.getRight().getBalance() == 1) {
+                node.setRight(rightRotate(node.getRight()));
+            }
+            return leftRotate(node);
+        }
+        if (node.getBalance() == 2) {
+            if (node.getLeft().getBalance() == -1) {
+                node.setLeft(leftRotate(node.getLeft()));
+            }
+            return rightRotate(node);
+
+        }
+        return node;
     }
 
 }
