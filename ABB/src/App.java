@@ -1,27 +1,28 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        ABB myAbb = new ABB();
-        myAbb.generateABB(100);
-        myAbb.generateABB(20);
-        myAbb.generateABB(850);
-        myAbb.generateABB(1000);
-        myAbb.generateABB(100);
-        myAbb.generateABB(0);
-        if (myAbb.searchABB(myAbb.root, 0)) {
+        SBT mySBT = new SBT();
+        mySBT.generateTree(100);
+        mySBT.generateTree(20);
+        mySBT.generateTree(850);
+        mySBT.generateTree(1000);
+        mySBT.generateTree(100);
+        mySBT.generateTree(0);
+        if (mySBT.searchSBT(mySBT.getRoot(), 0)) {
             System.out.println("Elemento 0 encontrado");
         } else {
             System.out.println("Elemento no encontrado");
         }
-        System.out.println("LeverOrder");
-        myAbb.levelOrderTraversal(myAbb.root);
+        System.out.println("LevelOrder");
+        System.out.println(mySBT.getRoot());
+        mySBT.levelOrderTraversal(mySBT.getRoot());
         System.out.println("Se elimina el 0");
-        myAbb.delete(0);
-        System.out.println("LeverOrder resultante");
-        myAbb.levelOrderTraversal(myAbb.root);
+        mySBT.delete(0);
+        System.out.println("LevelOrder resultante");
+        mySBT.levelOrderTraversal(mySBT.getRoot());
         System.out.println("Suma no recursiva de los elementos del árbol");
-        System.out.println(myAbb.sumaNR(myAbb.root));
+        System.out.println(mySBT.sumaNR(mySBT.getRoot()));
         System.out.println("Suma recursiva de los elementos del árbol");
-        System.out.println(myAbb.sumaR(myAbb.root));
-        System.out.println("El árbol tiene altura: "+myAbb.height(myAbb.root));
+        System.out.println(mySBT.sumaR(mySBT.getRoot()));
+        System.out.println("El árbol tiene altura: " + mySBT.height(mySBT.getRoot()));
     }
 }
