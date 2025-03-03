@@ -15,17 +15,18 @@ public abstract class BinaryTree {
     protected Node root;
 
     /**
-     * The function addNodeR recursively adds a new node to a tree starting from the
-     * root node.
+     * This Java function adds a new node with a given value recursively to a tree
+     * data structure.
      * 
-     * @param root    The `root` parameter is a reference to the root node of a tree
-     *                data structure where the
-     *                new node will be added.
-     * @param newNode The `newNode` parameter represents the node that you want to
-     *                add to the tree.
+     * @param node The `node` parameter is an instance of the `Node` class, which
+     *             represents a node in a
+     *             data structure such as a tree or a linked list.
+     * @param x    The parameter `x` is an integer value that represents the data
+     *             value of the node being
+     *             added to the tree.
      * @return The method `addNodeR` is returning a `Node` object.
      */
-    public abstract Node addNodeR(Node root, Node newNode);
+    public abstract Node addNodeR(Node node, int x);
 
     /**
      * The function `deleteNodeR` is a Java method that deletes a node with a
@@ -55,12 +56,12 @@ public abstract class BinaryTree {
      *             specified data.
      */
     public void generateTree(int data) {
-        Node newNode = new Node(data);
         if (root == null) {
-            root = newNode;
+
+            root = new Node(data);
             System.out.println("La raíz ha sido añadida " + root.getData());
         } else {
-            addNodeR(root, newNode);
+            root = addNodeR(root, data);
         }
     }
 
@@ -234,6 +235,18 @@ public abstract class BinaryTree {
         if (node == null)
             return 0;
         return 1 + Math.max(height(node.getLeft()), height(node.getRight()));
+    }
+
+    /**
+     * The `getRoot` function in Java returns the root node of a data structure.
+     * 
+     * @return The `getRoot()` method is returning the `root` Node of a data
+     *         structure, likely a tree or a
+     *         graph.
+     */
+
+    public Node getRoot() {
+        return root;
     }
 
 }

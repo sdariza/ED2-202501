@@ -2,9 +2,8 @@ public class Node {
     // These lines are declaring private instance variables in the `Node` class in
     // Java. Here's what each
     // variable represents:
-    private int data;
+    private int data, balance;
     private Node left, right;
-    private int balance;
 
     // This is a constructor for the `Node` class in Java. When a new `Node` object
     // is created with an
@@ -18,6 +17,7 @@ public class Node {
         this.left = null;
         this.right = null;
         this.balance = 0;
+        // this.height = 1;
     }
 
     /**
@@ -103,5 +103,13 @@ public class Node {
     public int getBalance() {
         return balance;
     }
+
+    // public int getHeight() {
+    //     return height;
+    // }
+
+    // public void setHeight(int height) {
+    //     this.height = height;
+    // }
 
 }

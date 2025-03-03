@@ -17,24 +17,24 @@ public class SBT extends BinaryTree {
      * @return The method `addNodeR` is returning a `Node` object.
      */
     @Override
-    public Node addNodeR(Node node, Node newNode) {
-        if (node.getData() > newNode.getData()) {
+    public Node addNodeR(Node node, int x) {
+        if (node.getData() > x) {
             if (node.getLeft() == null) {
-                node.setLeft(newNode);
-                System.out.println("Elemento " + newNode.getData() + " añadido");
+                node.setLeft(new Node(x));
+                System.out.println("Elemento " + x + " añadido");
             } else {
-                node.setLeft(addNodeR(node.getLeft(), newNode));
+                node.setLeft(addNodeR(node.getLeft(), x));
             }
         } else {
-            if (node.getData() < newNode.getData()) {
+            if (node.getData() < x) {
                 if (node.getRight() == null) {
-                    node.setRight(newNode);
-                    System.out.println("Elemento " + newNode.getData() + " añadido");
+                    node.setRight(new Node(x));
+                    System.out.println("Elemento " + x + " añadido");
                 } else {
-                    node.setRight(addNodeR(node.getRight(), newNode));
+                    node.setRight(addNodeR(node.getRight(), x));
                 }
             } else {
-                System.out.printf("El elemento %d ya existe \n", newNode.getData());
+                System.out.printf("El elemento %d ya existe \n", x);
             }
         }
         node.setBalance(height(node.getLeft()) - height(node.getRight()));
@@ -65,8 +65,10 @@ public class SBT extends BinaryTree {
     @Override
     public Node deleteNodeR(Node node, int x) {
         // casos bases
-        if (node == null)// No lo encontré
+        if (node == null) {// No lo encontré
+            System.out.printf("Elemento %d no encontrado \n", x);
             return null;
+        }
         if (node.getData() == x) {// Lo encontré debo contemplar y eliminar
             // Caso 1 y 2: No tiene hijos o tiene 1 hijo
             if (node.getLeft() == null)
@@ -87,18 +89,6 @@ public class SBT extends BinaryTree {
         }
         node.setBalance(height(node.getLeft()) - height(node.getRight()));
         return node;
-    }
-
-    /**
-     * The `getRoot` function in Java returns the root node of a data structure.
-     * 
-     * @return The `getRoot()` method is returning the `root` Node of a data
-     *         structure, likely a tree or a
-     *         graph.
-     */
-
-    public Node getRoot() {
-        return root;
     }
 
 }
