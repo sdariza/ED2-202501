@@ -1,6 +1,6 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        SBT mySBT = new SBT();
+        BST mySBT = new BST();
         mySBT.generateTree(25);
         mySBT.generateTree(10);
         mySBT.generateTree(30);

@@ -1,4 +1,4 @@
-public class SBT extends BinaryTree {
+public class BST extends BinaryTree {
     /**
      * The function `addNodeR` recursively adds a new node to a binary search tree
      * based on the node's data
