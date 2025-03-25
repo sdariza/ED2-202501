@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 
 public class Graph {
     private Map<String, Node> nodes;
@@ -41,20 +43,24 @@ public class Graph {
     }
 
     public void depthFirstSearch(String startValue) {
-        System.out.println("DFS from: " + startValue);
+        System.out.println("DFS starting from: " + startValue);
         Node startNode = nodes.get(startValue);
         if (startNode != null) {
-            Map<Node, Boolean> visited = new HashMap<>();
+            Set<Node> visited = new HashSet<>(); // Usamos Set en lugar de Map
             dfs(startNode, visited);
+        } else {
+            System.out.println("Node not found!");
         }
         System.out.println();
     }
 
-    public void dfs(Node current, Map<Node, Boolean> visited) {
-        visited.put(current, true);
+    // DFS recursivo (privado)
+    private void dfs(Node current, Set<Node> visited) {
+        visited.add(current); // Marca como visitado
         System.out.print("-->" + current.getValue());
-        for (Node neighbor : adjacencyList.get(current)) {
-            if (!visited.getOrDefault(neighbor, false)) {
+
+        for (Node neighbor : adjacencyList.getOrDefault(current, new ArrayList<>())) {
+            if (!visited.contains(neighbor)) { // Verifica eficientemente
                 dfs(neighbor, visited);
             }
         }
